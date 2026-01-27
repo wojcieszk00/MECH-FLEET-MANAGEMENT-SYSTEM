@@ -13,4 +13,7 @@ typedef struct Mech {
 void print_menu();
 void free_memory(Mech *head);
 
+Mech* add_new_mech(Mech *head);
+void print_all_mechs(Mech *head);
+
 #endif
