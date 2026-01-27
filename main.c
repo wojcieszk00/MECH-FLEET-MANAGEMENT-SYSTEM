@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("Error: No database file provided.\n");
+        printf("No database file provided.\n");
         printf("Usage: %s <filename.txt>\n", argv[0]);
         return 1;
     }
@@ -22,10 +22,10 @@ int main(int argc, char *argv[]) {
 
         switch (choice) {
             case 1:
-                printf("...\n");
+                print_all_mechs(head);
                 break;
             case 2:
-                printf("...\n");
+                head = add_new_mech(head);
                 break;
             case 3:
                 printf("...\n");
