@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
                 head = delete_mech(head);
                 break;
             case 5:
-                printf("...\n");
+                search_mechs(head);
                 break;
             case 6:
                 printf("...\n");

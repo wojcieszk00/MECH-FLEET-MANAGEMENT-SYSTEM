@@ -13,3 +13,8 @@ Fire Support
 0
 Bartek
 Requires Inspection
+BOEING
+Scout
+30
+Benek
+Operational

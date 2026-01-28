@@ -21,5 +21,7 @@ Mech* load_from_file(const char *filename);
 
 Mech* delete_mech(Mech *head);
 
+void search_mechs(Mech *head);
+
 
 #endif

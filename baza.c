@@ -215,3 +215,81 @@ Mech* delete_mech(Mech *head) {
     return head;
 }
 
+
+void search_mechs(Mech *head) {
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    int choice;
+    printf("\n--- SEARCH OPTIONS ---\n");
+    printf("1. Search by Model ID (Prefix)\n");
+    printf("2. Search by Minimum Reactor Power\n");
+    printf("Select option: ");
+    
+    if (scanf("%d", &choice) != 1) {
+        while (getchar() != '\n');
+        return;
+    }
+    while (getchar() != '\n'); 
+
+    int found_count = 0;
+
+    if (choice == 1) {
+        char query[101];
+        printf("Enter Model Name (or start of name): ");
+        fgets(query, 100, stdin);
+        remove_newline(query);
+
+        printf("\n--- SEARCH RESULTS (Model starts with '%s') ---\n", query);
+        printf("%-20s %-15s %-10s %-20s %-15s\n", "MODEL", "TYPE", "POWER", "PILOT", "STATUS");
+        printf("----------------------------------------------------------------------------------\n");
+
+        Mech *current = head;
+        while (current != NULL) {
+            size_t len = strlen(query);
+            if (strncmp(current->model, query, len) == 0) {
+                printf("%-20s %-15s %-10d %-20s %-15s\n", 
+                    current->model, 
+                    current->type, 
+                    current->reactor_power, 
+                    current->pilot, 
+                    current->status);
+                found_count++;
+            }
+            current = current->next;
+        }
+
+    } else if (choice == 2) {
+        int min_power;
+        printf("Enter minimum reactor power: ");
+        scanf("%d", &min_power);
+        while (getchar() != '\n'); 
+
+        printf("\n--- SEARCH RESULTS (Power >= %d) ---\n", min_power);
+        printf("%-20s %-15s %-10s %-20s %-15s\n", "MODEL", "TYPE", "POWER", "PILOT", "STATUS");
+        printf("----------------------------------------------------------------------------------\n");
+
+        Mech *current = head;
+        while (current != NULL) {
+            if (current->reactor_power >= min_power) {
+                printf("%-20s %-15s %-10d %-20s %-15s\n", 
+                    current->model, 
+                    current->type, 
+                    current->reactor_power, 
+                    current->pilot, 
+                    current->status);
+                found_count++;
+            }
+            current = current->next;
+        }
+    } else {
+        printf("Invalid search option.\n");
+        return;
+    }
+
+    if (found_count == 0) {
+        printf("[No mechs found]\n");
+    }
+}
