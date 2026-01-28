@@ -25,4 +25,6 @@ void search_mechs(Mech *head);
 
 void edit_mech(Mech *head);
 
+void sort_mechs(Mech *head);
+
 #endif

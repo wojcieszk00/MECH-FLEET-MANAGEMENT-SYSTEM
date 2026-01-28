@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
                 search_mechs(head);
                 break;
             case 6:
-                printf("...\n");
+                sort_mechs(head);
                 break;
             case 7:
                 save_to_file(head, file);

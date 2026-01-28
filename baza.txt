@@ -1,3 +1,8 @@
+BEST
+Scout
+100
+Gienek
+
 TEST
 scout
 100
@@ -8,13 +13,13 @@ defensive
 20
 BOSS
 Operational
-BEST
-Scout
-100
-Gienek
-
 BOEING
 Assault
 10
 Janek
+Damaged
+STORM
+Fire support
+50
+Jerry
 Damaged

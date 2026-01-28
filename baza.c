@@ -46,7 +46,7 @@ Mech* add_new_mech(Mech *head) {
     fgets(new_node->model, 100, stdin);
     remove_newline(new_node->model);
 
-    printf("Type (Assault, Scout, Defensive, Fire_Support): ");
+    printf("Type (Assault, Scout, Defensive, Fire support): ");
     fgets(new_node->type, 50, stdin);
     remove_newline(new_node->type);
 
@@ -100,7 +100,7 @@ void print_all_mechs(Mech *head) {
         current = current->next;
     }
 }
-
+//files
 void save_to_file(Mech *head, const char *filename) {
     FILE *fp = fopen(filename, "w");
     if (fp == NULL) {
@@ -296,7 +296,7 @@ void search_mechs(Mech *head) {
 
 void edit_mech(Mech *head) {
     if (head == NULL) {
-        printf("List is empty. Nothing to edit.\n");
+        printf("List is empty.\n");
         return;
     }
 
@@ -311,7 +311,7 @@ void edit_mech(Mech *head) {
     while (current != NULL) {
         if (strcmp(current->model, target_model) == 0) {
             printf("\n--- EDITING MECH: %s ---\n", current->model);
-            printf("NOTE: Model ID cannot be changed.\n");
+            printf("!!! Model ID cannot be changed.\n");
 
             printf("Current Type: %s\n", current->type);
             printf("Enter New Type: ");
@@ -342,4 +342,83 @@ void edit_mech(Mech *head) {
     }
 
     printf("Mech '%s' not found.\n", target_model);
+}
+
+void swap_data(Mech *a, Mech *b) {
+    char temp_model[101];
+    char temp_type[50];
+    int temp_power;
+    char temp_pilot[101];
+    char temp_status[50];
+
+    // a to temp
+    strcpy(temp_model, a->model);
+    strcpy(temp_type, a->type);
+    temp_power = a->reactor_power;
+    strcpy(temp_pilot, a->pilot);
+    strcpy(temp_status, a->status);
+    // b to a
+    strcpy(a->model, b->model);
+    strcpy(a->type, b->type);
+    a->reactor_power = b->reactor_power;
+    strcpy(a->pilot, b->pilot);
+    strcpy(a->status, b->status);
+    // b to temp
+    strcpy(b->model, temp_model);
+    strcpy(b->type, temp_type);
+    b->reactor_power = temp_power;
+    strcpy(b->pilot, temp_pilot);
+    strcpy(b->status, temp_status);
+}
+
+void sort_mechs(Mech *head) {
+    if (head == NULL || head->next == NULL) {
+        printf("Not enough mechs to sort.\n");
+        return;
+    }
+
+    int choice;
+    printf("\n--- SORT OPTIONS ---\n");
+    printf("1. Sort by Model ID (A-Z)\n");
+    printf("2. Sort by Reactor Power (High to Low)\n");
+    printf("Select option: ");
+    
+    if (scanf("%d", &choice) != 1) {
+        while (getchar() != '\n');
+        return;
+    }
+    while (getchar() != '\n'); 
+
+    int swapped;
+    Mech *iterator;
+    Mech *sorted = NULL;
+
+    do {
+        swapped = 0;
+        iterator = head;
+
+        while (iterator->next != sorted) {
+            int should_swap = 0;
+
+            if (choice == 1) {
+                if (strcmp(iterator->model, iterator->next->model) > 0) {
+                    should_swap = 1;
+                }
+            } else if (choice == 2) {
+                if (iterator->reactor_power < iterator->next->reactor_power) {
+                    should_swap = 1;
+                }
+            }
+
+            if (should_swap) {
+                swap_data(iterator, iterator->next);
+                swapped = 1;
+            }
+            iterator = iterator->next;
+        }
+        sorted = iterator;
+    } while (swapped);
+
+    printf("Fleet sorted successfully.\n");
+    print_all_mechs(head); 
 }
