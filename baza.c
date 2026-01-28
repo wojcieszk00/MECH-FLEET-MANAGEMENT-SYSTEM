@@ -169,3 +169,45 @@ Mech* load_from_file(const char *filename) {
     printf("Database loaded from %s.\n", filename); 
     return head;
 }
+
+
+Mech* delete_mech(Mech *head) {
+    if (head == NULL) {
+        printf("List is empty. Nothing to delete.\n");
+        return NULL;
+    }
+
+    char target_model[101];
+    while (getchar() != '\n');
+    
+    printf("Enter Model Name (ID) to delete: ");
+    fgets(target_model, 100, stdin);
+    remove_newline(target_model);
+
+//item is head
+    if (strcmp(head->model, target_model) == 0) {
+        Mech *temp = head;
+        head = head->next;
+        free(temp);
+        printf("Mech '%s' deleted successfully.\n", target_model);
+        return head;
+    }
+
+//item is in body
+    Mech *current = head->next;
+    Mech *prev = head;
+
+    while (current != NULL) {
+        if (strcmp(current->model, target_model) == 0) {
+            prev->next = current->next;
+            free(current);
+            printf("Mech '%s' deleted successfully.\n", target_model);
+            return head;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    printf("Mech '%s' not found.\n", target_model);
+    return head;
+}

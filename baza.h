@@ -19,5 +19,7 @@ void print_all_mechs(Mech *head);
 void save_to_file(Mech *head, const char *filename);
 Mech* load_from_file(const char *filename);
 
+Mech* delete_mech(Mech *head);
+
 
 #endif

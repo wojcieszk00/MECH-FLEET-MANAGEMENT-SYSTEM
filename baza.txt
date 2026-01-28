@@ -8,18 +8,8 @@ defensive
 20
 BOSS
 Operational
-1
-1
-1
-1
-1
-gg
-gg
+BEST
+Fire Support
 0
-g
-gg
-
-
-1
-
-
+Bartek
+Requires Inspection
