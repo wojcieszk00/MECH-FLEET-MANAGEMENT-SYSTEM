@@ -101,3 +101,71 @@ void print_all_mechs(Mech *head) {
         current = current->next;
     }
 }
+
+void save_to_file(Mech *head, const char *filename) {
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        printf("Could not open file %s for writing.\n", filename);
+        return;
+    }
+
+    Mech *current = head;
+    while (current != NULL) {
+        fprintf(fp, "%s\n", current->model);
+        fprintf(fp, "%s\n", current->type);
+        fprintf(fp, "%d\n", current->reactor_power);
+        fprintf(fp, "%s\n", current->pilot);
+        fprintf(fp, "%s\n", current->status);
+        current = current->next;
+    }
+
+    fclose(fp);
+    printf("Database saved to %s\n", filename);
+}
+
+Mech* load_from_file(const char *filename) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("No database file found. Starting with empty fleet.\n");
+        return NULL;
+    }
+
+    Mech *head = NULL;
+    Mech *tail = NULL;
+    char buffer[100];
+
+    while (1) {
+        Mech *new_node = (Mech*)malloc(sizeof(Mech));
+        if (fgets(new_node->model, 100, fp) == NULL) {
+            free(new_node);
+            break;
+        }
+        remove_newline(new_node->model);
+
+        fgets(new_node->type, 50, fp);
+        remove_newline(new_node->type);
+
+        fgets(buffer, 100, fp);
+        new_node->reactor_power = atoi(buffer);
+
+        fgets(new_node->pilot, 100, fp);
+        remove_newline(new_node->pilot);
+
+        fgets(new_node->status, 50, fp);
+        remove_newline(new_node->status);
+
+        new_node->next = NULL;
+
+        if (head == NULL) {
+            head = new_node;
+            tail = new_node;
+        } else {
+            tail->next = new_node;
+            tail = new_node;
+        }
+    }
+
+    fclose(fp);
+    printf("Database loaded from %s.\n", filename); 
+    return head;
+}
