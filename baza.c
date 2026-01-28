@@ -60,7 +60,7 @@ Mech* add_new_mech(Mech *head) {
     fgets(new_node->pilot, 100, stdin);
     remove_newline(new_node->pilot);
 
-    printf("Status (Operational, Damaged, Under_Repair, Requires_Inspection): ");
+    printf("Status (Operational, Damaged, Repair, Scrapped, Requires Inspection): ");
     fgets(new_node->status, 50, stdin);
     remove_newline(new_node->status);
 
@@ -89,10 +89,9 @@ void print_all_mechs(Mech *head) {
 
     printf("\n%-20s %-15s %-10s %-20s %-15s\n", "MODEL", "TYPE", "POWER", "PILOT", "STATUS");
     printf("----------------------------------------------------------------------------------\n");
-    
     Mech *current = head;
     while (current != NULL) {
-        printf("%-20s %-15s %-10d %-20s %-15s\n", 
+        printf("%-20s %-15s %-10d %-20s %-15s\n",
             current->model, 
             current->type, 
             current->reactor_power, 
@@ -184,26 +183,30 @@ Mech* delete_mech(Mech *head) {
     fgets(target_model, 100, stdin);
     remove_newline(target_model);
 
-//item is head
-    if (strcmp(head->model, target_model) == 0) {
-        Mech *temp = head;
-        head = head->next;
-        free(temp);
-        printf("Mech '%s' deleted successfully.\n", target_model);
-        return head;
-    }
-
-//item is in body
-    Mech *current = head->next;
-    Mech *prev = head;
+    Mech *current = head;
+    Mech *prev = NULL;
 
     while (current != NULL) {
         if (strcmp(current->model, target_model) == 0) {
-            prev->next = current->next;
+
+            if (strcmp(current->status, "Repair") != 0 && strcmp(current->status, "Scrapped") != 0) {
+                printf("\n  Cannot delete mech '%s'.\n", target_model);
+                printf("    Current status: '%s'\n", current->status);
+                printf("    Allowed statuses for deletion: 'Repair', 'Scrapped'\n");
+                return head;
+            }
+
+            if (prev == NULL) {
+                head = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            
             free(current);
             printf("Mech '%s' deleted successfully.\n", target_model);
             return head;
         }
+
         prev = current;
         current = current->next;
     }
@@ -211,3 +214,4 @@ Mech* delete_mech(Mech *head) {
     printf("Mech '%s' not found.\n", target_model);
     return head;
 }
+
