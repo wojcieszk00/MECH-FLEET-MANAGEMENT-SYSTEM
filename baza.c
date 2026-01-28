@@ -32,6 +32,19 @@ void remove_newline(char *str) {
     }
 }
 
+void get_valid_string(char *buffer, int size, const char *prompt) {
+    while (1) {
+        printf("%s", prompt);
+        fgets(buffer, size, stdin);
+        remove_newline(buffer);
+        
+        if (strlen(buffer) > 0) {
+            break;
+        }
+        printf("!!! Input cannot be empty. Try again.\n");
+    }
+}
+
 Mech* add_new_mech(Mech *head) {
     Mech *new_node = (Mech*)malloc(sizeof(Mech));
     if (new_node == NULL) {
@@ -42,13 +55,9 @@ Mech* add_new_mech(Mech *head) {
     while (getchar() != '\n');
     
     printf("\n ADDING NEW MECH \n");
-    printf("Model name (ID): ");
-    fgets(new_node->model, 100, stdin);
-    remove_newline(new_node->model);
 
-    printf("Type (Assault, Scout, Defensive, Fire support): ");
-    fgets(new_node->type, 50, stdin);
-    remove_newline(new_node->type);
+    get_valid_string(new_node->model, 100, "Model name (ID): ");
+    get_valid_string(new_node->type, 50, "Type (Assault, Scout, Defensive, Fire support): ");
 
     printf("Reactor Power (0-100): ");
     if (scanf("%d", &new_node->reactor_power) != 1) {
@@ -60,9 +69,7 @@ Mech* add_new_mech(Mech *head) {
     fgets(new_node->pilot, 100, stdin);
     remove_newline(new_node->pilot);
 
-    printf("Status (Operational, Damaged, Repair, Scrapped, Requires Inspection): ");
-    fgets(new_node->status, 50, stdin);
-    remove_newline(new_node->status);
+    get_valid_string(new_node->status, 50, "Status (Operational, Damaged, Repair, Scrapped, Requires Inspection): ");
 
     new_node->next = NULL;
 
@@ -315,8 +322,7 @@ void edit_mech(Mech *head) {
 
             printf("Current Type: %s\n", current->type);
             printf("Enter New Type: ");
-            fgets(current->type, 50, stdin);
-            remove_newline(current->type);
+            get_valid_string(current->type, 50, "Type (Assault, Scout, Defensive, Fire support): ");
 
             printf("Current Power: %d\n", current->reactor_power);
             printf("Enter New Reactor Power (0-100): ");
@@ -329,11 +335,10 @@ void edit_mech(Mech *head) {
             printf("Enter New Pilot: ");
             fgets(current->pilot, 100, stdin);
             remove_newline(current->pilot);
-
+            
             printf("Current Status: %s\n", current->status);
             printf("Enter New Status: ");
-            fgets(current->status, 50, stdin);
-            remove_newline(current->status);
+            get_valid_string(current->status, 50, "Status (Operational, Damaged, Repair, Scrapped, Requires Inspection): ");
 
             printf("\nMech updated successfully.\n");
             return;
