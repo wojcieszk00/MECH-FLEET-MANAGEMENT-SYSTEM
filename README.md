@@ -44,17 +44,18 @@ Program wymaga podania nazwy pliku bazy danych jako argumentu:
 (Jeśli plik nie istnieje, program utworzy go automatycznie przy pierwszym zapisie).
 
 ### 📂 Struktura Plików
-Plaintext
+```text
 .
 ├── main.c       # Główna pętla programu i menu
 ├── baza.c       # Implementacja logiki biznesowej i obsługi listy
 ├── baza.h       # Nagłówki funkcji i definicja struktury Mech
 ├── baza.txt     # Przykładowa baza danych
 └── README.md    # Dokumentacja projektu
+```
 ### 💾 Struktura Danych
 Program opiera się na strukturze dynamicznej (lista jednokierunkowa):
 
-C
+```C
 typedef struct Mech {
     char model[101];        // ID (Unikalne)
     char type[50];          // Klasa (Scout, Assault, etc.)
@@ -63,7 +64,7 @@ typedef struct Mech {
     char status[50];        // Status operacyjny
     struct Mech *next;      // Wskaźnik na kolejny element
 } Mech;
-
+```
 Autor: Wojciech Cimochowski
 
 
