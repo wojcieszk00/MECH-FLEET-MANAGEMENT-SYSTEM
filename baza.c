@@ -293,3 +293,53 @@ void search_mechs(Mech *head) {
         printf("[No mechs found]\n");
     }
 }
+
+void edit_mech(Mech *head) {
+    if (head == NULL) {
+        printf("List is empty. Nothing to edit.\n");
+        return;
+    }
+
+    char target_model[101];
+    while (getchar() != '\n');
+    
+    printf("Enter Model Name (ID) to edit: ");
+    fgets(target_model, 100, stdin);
+    remove_newline(target_model);
+
+    Mech *current = head;
+    while (current != NULL) {
+        if (strcmp(current->model, target_model) == 0) {
+            printf("\n--- EDITING MECH: %s ---\n", current->model);
+            printf("NOTE: Model ID cannot be changed.\n");
+
+            printf("Current Type: %s\n", current->type);
+            printf("Enter New Type: ");
+            fgets(current->type, 50, stdin);
+            remove_newline(current->type);
+
+            printf("Current Power: %d\n", current->reactor_power);
+            printf("Enter New Reactor Power (0-100): ");
+            if (scanf("%d", &current->reactor_power) != 1) {
+                current->reactor_power = 0;
+            }
+            while (getchar() != '\n');
+
+            printf("Current Pilot: %s\n", current->pilot);
+            printf("Enter New Pilot: ");
+            fgets(current->pilot, 100, stdin);
+            remove_newline(current->pilot);
+
+            printf("Current Status: %s\n", current->status);
+            printf("Enter New Status: ");
+            fgets(current->status, 50, stdin);
+            remove_newline(current->status);
+
+            printf("\nMech updated successfully.\n");
+            return;
+        }
+        current = current->next;
+    }
+
+    printf("Mech '%s' not found.\n", target_model);
+}

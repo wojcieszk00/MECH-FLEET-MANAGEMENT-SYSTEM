@@ -9,12 +9,12 @@ defensive
 BOSS
 Operational
 BEST
-Fire Support
-0
-Bartek
-Requires Inspection
-BOEING
 Scout
-30
-Benek
-Operational
+100
+Gienek
+
+BOEING
+Assault
+10
+Janek
+Damaged

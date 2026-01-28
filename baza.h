@@ -23,5 +23,6 @@ Mech* delete_mech(Mech *head);
 
 void search_mechs(Mech *head);
 
+void edit_mech(Mech *head);
 
 #endif
