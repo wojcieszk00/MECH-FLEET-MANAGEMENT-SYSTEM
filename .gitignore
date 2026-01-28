@@ -1,0 +1,19 @@
+# Pliki wykonywalne (Windows)
+*.exe
+*.dll
+
+# Pliki wykonywalne (Linux/Mac - na wszelki wypadek)
+*.out
+*.o
+*.obj
+
+# Folder ustawień VS Code
+.vscode/
+
+# Pliki tymczasowe i backupy
+*.bak
+*~
+*.swp
+
+# Systemowe pliki Mac (jeśli używasz lub ktoś inny używa)
+.DS_Store
