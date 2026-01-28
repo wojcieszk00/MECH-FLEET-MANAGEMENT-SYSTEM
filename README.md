@@ -1,6 +1,6 @@
 # 🤖 Mech Fleet Management System (2026)
 
-> **System zarządzania ewidencją jednostek bojowych.** >
+> **System zarządzania ewidencją jednostek bojowych.**
 
 ---
 
