@@ -30,13 +30,13 @@ int main(int argc, char *argv[]) {
                 head = add_new_mech(head);
                 break;
             case 3:
-                printf("...\n");
+                edit_mech(head);
                 break;
             case 4:
                 head = delete_mech(head);
                 break;
             case 5:
-                printf("...\n");
+                search_mechs(head);
                 break;
             case 6:
                 printf("...\n");
