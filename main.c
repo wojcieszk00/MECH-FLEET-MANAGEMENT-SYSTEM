@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
                 printf("...\n");
                 break;
             case 4:
-                printf("...\n");
+                head = delete_mech(head);
                 break;
             case 5:
                 printf("...\n");
