@@ -16,4 +16,8 @@ void free_memory(Mech *head);
 Mech* add_new_mech(Mech *head);
 void print_all_mechs(Mech *head);
 
+void save_to_file(Mech *head, const char *filename);
+Mech* load_from_file(const char *filename);
+
+
 #endif

@@ -10,7 +10,9 @@ int main(int argc, char *argv[]) {
     }
 
     char *file = argv[1];
-    Mech *head = NULL;
+    
+    Mech *head = load_from_file(file);
+
     int choice;
 
     do {
@@ -40,7 +42,7 @@ int main(int argc, char *argv[]) {
                 printf("...\n");
                 break;
             case 7:
-                printf("Saving to %s and exiting...\n", file);
+                save_to_file(head, file);
                 free_memory(head);
                 return 0;
             case 0:
